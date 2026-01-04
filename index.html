@@ -4,94 +4,325 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Prathamesh Joshi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --ink: #0b1b2b;
+      --muted: #4b5a6a;
+      --accent: #ff7a59;
+      --accent-dark: #c9573e;
+      --teal: #2a9d8f;
+      --sun: #f4a261;
+      --paper: #f7f2ec;
+      --card: #ffffff;
+      --shadow: 0 24px 60px rgba(11, 27, 43, 0.12);
+    }
+    * {
+      box-sizing: border-box;
+    }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      max-width: 760px;
-      margin: 40px auto;
-      padding: 0 20px;
-      line-height: 1.6;
-      color: #1a1a1a;
+      margin: 0;
+      font-family: "Space Grotesk", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: radial-gradient(circle at top left, #fff2d9 0%, #f6f1ff 30%, #eaf6ff 60%, #f7f2ec 100%);
+      min-height: 100vh;
+    }
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      filter: blur(0px);
+      opacity: 0.35;
+      z-index: -1;
+    }
+    body::before {
+      background: radial-gradient(circle, #ffd27f 0%, rgba(255, 210, 127, 0) 70%);
+      top: -120px;
+      right: -120px;
+    }
+    body::after {
+      background: radial-gradient(circle, #5fd3c0 0%, rgba(95, 211, 192, 0) 70%);
+      bottom: -160px;
+      left: -100px;
+    }
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 64px 24px 72px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
     }
     h1, h2 {
-      line-height: 1.3;
+      font-family: "Fraunces", "Times New Roman", serif;
+      line-height: 1.15;
+      margin: 0 0 12px;
+    }
+    h1 {
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+    }
+    h2 {
+      font-size: clamp(1.6rem, 2.3vw, 2.1rem);
+      color: var(--ink);
+    }
+    p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      line-height: 1.7;
     }
     a {
-      color: #0366d6;
+      color: var(--accent-dark);
       text-decoration: none;
+      font-weight: 600;
     }
     a:hover {
-      text-decoration: underline;
+      color: var(--accent);
     }
     .muted {
-      color: #666;
+      color: var(--muted);
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 32px;
+      align-items: center;
+      background: var(--card);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      animation: rise 600ms ease-out both;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(255, 122, 89, 0.08), rgba(42, 157, 143, 0.12));
+      pointer-events: none;
+    }
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      font-size: 0.75rem;
+      color: var(--teal);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .tagline {
+      font-size: 1.1rem;
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      background: var(--accent);
+      color: white;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      box-shadow: 0 12px 24px rgba(255, 122, 89, 0.25);
+      transition: transform 200ms ease, box-shadow 200ms ease;
+    }
+    .button.secondary {
+      background: #fff3eb;
+      color: var(--accent-dark);
+      box-shadow: none;
+    }
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 28px rgba(255, 122, 89, 0.3);
+    }
+    .hero-photo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-photo img {
+      width: min(220px, 60vw);
+      height: min(220px, 60vw);
+      border-radius: 28px;
+      object-fit: cover;
+      border: 6px solid #fff;
+      box-shadow: 0 20px 45px rgba(11, 27, 43, 0.2);
+    }
+    .cards {
+      display: grid;
+      gap: 22px;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 26px 28px;
+      box-shadow: var(--shadow);
+      animation: fade 700ms ease-out both;
+    }
+    .card:nth-child(2) {
+      animation-delay: 120ms;
+    }
+    .card:nth-child(3) {
+      animation-delay: 220ms;
+    }
+    ul {
+      padding-left: 18px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    .link-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .link-grid a {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #ecf9f7;
+      color: var(--teal);
+      font-weight: 600;
     }
     footer {
-      margin-top: 60px;
-      font-size: 0.9em;
-      color: #666;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+    @keyframes rise {
+      from {
+        transform: translateY(14px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    @keyframes fade {
+      from {
+        transform: translateY(10px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    @media (max-width: 720px) {
+      .page {
+        padding-top: 40px;
+      }
+      .hero {
+        padding: 26px;
+      }
+      .hero-actions {
+        justify-content: center;
+      }
+      .hero-photo img {
+        width: min(200px, 70vw);
+        height: min(200px, 70vw);
+      }
     }
   </style>
 </head>
 <body>
 
-<h1>Prathamesh Joshi</h1>
-<p class="muted">Principal Software Engineer · IoT · Distributed Systems · Cloud</p>
+<div class="page">
+  <header class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">Building real-world systems</p>
+      <h1>Prathamesh Joshi</h1>
+      <p class="tagline">Founder · Principal Software Engineer · IoT · Distributed Systems · Cloud</p>
+      <p>
+        I build real-world systems that run at scale, from embedded devices and edge connectivity
+        to high-throughput backend services, cloud infrastructure, and data platforms.
+      </p>
+      <div class="hero-actions">
+        <a class="button" href="https://www.linkedin.com/in/prathamesh-joshi-8a01b719/">LinkedIn</a>
+        <a class="button secondary" href="https://github.com/prathamesh1729">GitHub</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="profile.jpeg" alt="Prathamesh Joshi portrait">
+    </div>
+  </header>
 
-<p>
-I build real-world systems that run at scale — from embedded devices and edge connectivity
-to high-throughput backend services, cloud infrastructure, and data platforms.
-</p>
+  <section class="cards">
+    <div class="card">
+      <h2>About</h2>
+      <p>
+        I’m a Co-founder & Principal Engineer at Carnot Technologies (now part of Mahindra Group),
+        where I design and build large-scale IoT and telematics platforms.
+      </p>
 
-<h2>About</h2>
-<p>
-I’m a Co-founder & Principal Engineer at Carnot Technologies (now part of Mahindra Group),
-where I design and build large-scale IoT and telematics platforms.
-</p>
+      <p>
+        Over the last decade, I’ve worked across the stack — embedded systems, device connectivity,
+        backend services, cloud infrastructure, and analytics. Systems I’ve architected operate at
+        meaningful scale, supporting over <strong>100,000 connected vehicles</strong> and processing
+        <strong>500M+ telemetry events per day</strong> in production.
+      </p>
 
-<p>
-Over the last decade, I’ve worked across the stack: embedded systems, device connectivity,
-backend services, cloud infrastructure, and analytics. Systems I’ve built operate at meaningful
-scale, handling hundreds of millions of telemetry events per day across large device fleets.
-</p>
+      <p>
+        I’ve led multi-cloud infrastructure across AWS, GCP, and Azure using infrastructure as code,
+        and spent significant time on reliability, security (device onboarding and certificates),
+        and cost optimization, bringing operating costs to under <strong>$0.20 per device per month</strong>
+        at scale.
+      </p>
 
-<p>
-I enjoy working on problems that sit at the intersection of hardware and software, especially
-systems that must handle real-world constraints like unreliable networks, partial failures,
-and operational complexity. I also enjoy applying data and AI-driven approaches on top of
-large-scale systems to extract actionable insights.
-</p>
+      <p>
+        I enjoy building systems that run in the real world and deal with imperfect networks,
+        edge conditions, and operational constraints, while still being reliable and maintainable.
+        I have a soft corner for embedded systems, especially at the intersection of hardware and
+        software, and I enjoy applying data and AI-driven approaches on top of large-scale telemetry
+        to extract actionable insights.
+      </p>
+    </div>
 
-<h2>What I work on</h2>
-<ul>
-  <li>Distributed backend systems and real-time data pipelines</li>
-  <li>IoT platforms, device gateways, and telemetry ingestion</li>
-  <li>Cloud infrastructure across AWS, GCP, and Azure (IaC, Kubernetes)</li>
-  <li>Embedded systems and hardware–software integration</li>
-  <li>Reliability, security, and cost optimization at scale</li>
-  <li>Data platforms, analytics, and AI-enabled products</li>
-</ul>
+    <div class="card">
+      <h2>Focus areas</h2>
+      <ul>
+        <li><strong>Entrepreneurial leadership:</strong> Co-founded Carnot and shipped products from early prototypes to reliable production deployments, ultimately leading to its acquisition by Mahindra Group.</li>
+        <li><strong>Full-stack systems:</strong> Embedded/device integrations, connectivity and gateways, backend services, cloud infrastructure, and analytics.</li>
+        <li><strong>Data-driven problem solving:</strong> Turning high-volume telemetry into signals, insights, and automated workflows; designing for retries, partial failures, and messy real-world data.</li>
+        <li><strong>Deep tech:</strong> Strong interest in the hardware–software boundary, secure device-to-cloud communication, and systems that perform under real operational constraints.</li>
+      </ul>
+    </div>
 
-<h2>Selected work</h2>
-<ul>
-  <li>Architected hardware-agnostic IoT cloud platforms for large device fleets</li>
-  <li>Built high-throughput systems processing hundreds of millions of events per day</li>
-  <li>Led multi-cloud infrastructure and reduced per-device operating costs significantly</li>
-  <li>Designed secure device onboarding and OTA/FOTA pipelines</li>
-  <li>Worked closely with OEMs and cross-functional engineering teams</li>
-</ul>
+    <div class="card">
+      <h2>Links</h2>
+      <ul class="link-grid">
+        <li><a href="https://www.linkedin.com/in/prathamesh-joshi-8a01b719/">LinkedIn</a></li>
+        <li><a href="https://github.com/prathamesh1729">GitHub</a></li>
+        <li><a href="https://www.carnot.co.in/">Carnot</a></li>
+        <li><a href="https://scholar.google.com/citations?user=KS6b-UAAAAAJ&hl=en">Google Scholar</a></li>
+      </ul>
+    </div>
+  </section>
 
-<h2>Links</h2>
-<ul>
-  <li><a href="https://www.linkedin.com/in/prathamesh-joshi-8a01b719/">LinkedIn</a></li>
-  <li><a href="https://github.com/prathamesh1729">GitHub</a></li>
-  <li><a href="https://www.carnot.co.in/">Carnot</a></li>
-  <li><a href="https://scholar.google.com/citations?user=KS6b-UAAAAAJ&hl=en">Google Scholar</a></li>
-</ul>
-
-<footer>
-  <p>© Prathamesh Joshi 2026</p>
-</footer>
+  <footer>
+    <p>© Prathamesh Joshi 2026</p>
+  </footer>
+</div>
 
 </body>
 </html>
